@@ -173,7 +173,7 @@ nav ul li:hover > ul {
 
 /* First Tier Dropdown */
 nav ul ul li {
-	width:170px;
+	width: 200px;
 	float:none;
 	display:list-item;
 	position: relative;
