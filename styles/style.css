@@ -234,3 +234,8 @@ nav ul ul li {
   text-align: right;
   color: #097FB2;
 }
+
+.category {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
