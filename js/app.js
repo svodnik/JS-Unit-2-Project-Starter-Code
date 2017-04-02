@@ -5,6 +5,7 @@
 */
 
 var createArticleListing = function(title, image, category, impressions, timestamp, publication) {
+  timestamp = new Date(timestamp).getTime();
   return `<article class="article" data-date="${timestamp}" data-pub="${publication}"><section class="featuredImage">
     <img src="${image}" alt="" />
   </section>
@@ -19,45 +20,79 @@ var createArticleListing = function(title, image, category, impressions, timesta
 }
 
 $(function() {
-  console.log("hi");
   $('#popUp').removeClass('hidden');
 
-  $.get("https://accesscontrolalloworiginall.herokuapp.com/http://content.guardianapis.com/search?show-fields=thumbnail%2CtrailText%2Cwordcount&api-key=e8a00826-f3d6-4965-a89b-16ad2066bfa4", function(results){
-    console.log(results);
-    results.response.results.forEach(function(result){
-      var newArticle = createArticleListing(result.webTitle, result.fields.thumbnail, result.sectionName, result.fields.wordcount, result.webPublicationDate, "guardian");
-      newArticle = $(newArticle).data( "articleData", { description: result.fields.trailText, url: result.webUrl } );
-      $("#main").append(newArticle);
+  var guardianRequest = $.get("https://accesscontrolalloworiginall.herokuapp.com/http://content.guardianapis.com/search?show-fields=thumbnail%2CtrailText%2Cwordcount&api-key=e8a00826-f3d6-4965-a89b-16ad2066bfa4");
+  var nytRequest = $.get("http://api.nytimes.com/svc/topstories/v2/home.json?api-key=2999869bd86b4da48852d255f65250ff");
+  var diggRequest = $.get("https://accesscontrolalloworiginall.herokuapp.com/http://digg.com/api/news/popular.json");
 
-    })
-  })
+  $.when(guardianRequest, nytRequest, diggRequest).done(function(guardianResponse, nytResponse, diggResponse){
 
-  $.get("http://api.nytimes.com/svc/topstories/v2/home.json?api-key=2999869bd86b4da48852d255f65250ff", function(results){
-    console.log(results);
-    results.results.forEach(function(result){
-      var newArticle = createArticleListing(result.title, result.multimedia[0].url, result.section, result.abstract.length, result.published_date, "nyt");
-      newArticle = $(newArticle).data( "articleData", { description: result.abstract, url: result.url } );
-      $("#main").append(newArticle);
-      // console.log(newArticle.data("articleData").timestamp);
-    })
-  })
+    if (guardianResponse){
+      if (guardianResponse[0].response == null){
+        alert('This feed could not be loaded');
+      } else {
+        console.log(guardianResponse);
+        guardianResponse[0].response.results.forEach(function(result){
+          var newArticle = createArticleListing(result.webTitle, result.fields.thumbnail, result.sectionName, result.fields.wordcount, result.webPublicationDate, "guardian");
+          newArticle = $(newArticle).data( "articleData", { description: result.fields.trailText, url: result.webUrl } );
+          $("#main").append(newArticle);
+        })
+      }
+    }
 
-  $.get("https://accesscontrolalloworiginall.herokuapp.com/http://digg.com/api/news/popular.json", function(results){
-    console.log(results);
-    results.data.feed.forEach(function(result){
-      var newArticle = createArticleListing(result.content.title, result.content.media.images[0].url, result.content.tags[0].name, result.digg_score, result.date_published, "digg");
-      newArticle = $(newArticle).data( "articleData", { description: result.content.description, url: result.content.url } );
-      $("#main").append(newArticle);
-      // console.log(newArticle.data("articleData").timestamp);
-    })
-  })
+    if (nytResponse){
+      if (nytResponse[0].results == null){
+        alert('This feed could not be loaded');
+      } else {
+        console.log(nytResponse);
+        nytResponse[0].results.forEach(function(result){
+          var imgUrl = result.multimedia[0] ? result.multimedia[0].url : null;
+          var newArticle = createArticleListing(result.title, imgUrl, result.section, result.abstract.length, result.published_date, "nyt");
+          newArticle = $(newArticle).data( "articleData", { description: result.abstract, url: result.url } );
+          $("#main").append(newArticle);
+        })
+      }
+    }
 
-  $('#popUp').addClass('hidden');
+    if (diggResponse){
+      if (diggResponse[0].data == null){
+        alert('This feed could not be loaded');
+      } else {
+        console.log(diggResponse);
+        diggResponse[0].data.feed.forEach(function(result){
+          var newArticle = createArticleListing(result.content.title, result.content.media.images[0].url, result.content.tags[0].name, result.digg_score, (result.date_published*1000), "digg");
+          newArticle = $(newArticle).data( "articleData", { description: result.content.description, url: result.content.url } );
+          $("#main").append(newArticle);
+        })
+      }
+    }
+
+    var $articleListContainer = $('#main');
+    var $articleList = $articleListContainer.children('article');
+    $articleList.sort(function(a,b){
+      var ad = a.getAttribute('data-date');
+      var bd = b.getAttribute('data-date');
+
+      if(ad > bd) {
+        return 1;
+      }
+      if(ad < bd) {
+        return -1;
+      }
+      return 0;
+    });
+
+    $articleList.detach().appendTo($articleListContainer);
+    $('#popUp').addClass('hidden');
+  }).fail(function() {
 
 });
 
-$('#search').click(function(){
-  $(this).toggleClass('active');
+});
+
+$('#search img').click(function(){
+  $(this).parents('#search').toggleClass('active');
 });
 
 $('#main').on('click', '.article', function(){
@@ -84,20 +119,21 @@ $('#main').on('click', '.article', function(){
   $('#popUp').find('.popUpAction').attr("href", url);
 });
 
-$('#nyt').on('click', function(){
-  $("#main").find(`[data-pub="nyt"]`).removeClass('hidden');
-  $("#main").find(`[data-pub="guardian"]`).addClass('hidden');
-  $("#main").find(`[data-pub="digg"]`).addClass('hidden');
+var pubToggle = function(pub, pubName){
+  $('#popUp').removeClass('hidden');
+  $('#currentPub').text(pubName);
+  $("#main").find(`article[data-pub="${pub}"]`).removeClass('hidden');
+  $("#main").find(`article[data-pub!="${pub}"]`).addClass('hidden');
+  $('#popUp').addClass('hidden');
+};
+
+$('#sourceList li').on('click', function(){
+  var pub = $(this).children('a').attr('id');
+  var pubName = $(this).text();
+  pubToggle(pub, pubName);
 });
 
-$('#guardian').on('click', function(){
-  $("#main").find(`[data-pub="guardian"]`).removeClass('hidden');
-  $("#main").find(`[data-pub="nyt"]`).addClass('hidden');
-  $("#main").find(`[data-pub="digg"]`).addClass('hidden');
-});
-
-$('#digg').on('click', function(){
-  $("#main").find(`[data-pub="digg"]`).removeClass('hidden');
-  $("#main").find(`[data-pub="nyt"]`).addClass('hidden');
-  $("#main").find(`[data-pub="guardian"]`).addClass('hidden');
-});
+$('#logo').on('click', function(){
+  $('#currentPub').text("All");
+  $("#main").find('.article').removeClass('hidden');
+})
