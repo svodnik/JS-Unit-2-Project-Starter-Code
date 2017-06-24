@@ -1,4 +1,3 @@
-/* General styles */
 .container {
   max-width: 1000px;
   margin: 0 auto;
@@ -174,7 +173,7 @@ nav ul li:hover > ul {
 
 /* First Tier Dropdown */
 nav ul ul li {
-	width:170px;
+	width: 200px;
 	float:none;
 	display:list-item;
 	position: relative;
@@ -234,4 +233,9 @@ nav ul ul li {
   margin-top: 15px;
   text-align: right;
   color: #097FB2;
+}
+
+.category {
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
