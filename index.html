@@ -20,85 +20,48 @@
 
         <header>
           <section class="container">
-            <a href="#"><h1>Feedr</h1></a>
+            <a href="#"><h1 id="feedrButton">Feedr</h1></a>
             <nav>
               <ul>
                 <li><a href="#">News Source: <span>Source Name</span></a>
                   <ul>
-                      <li><a href="#">Source 1</a></li>
-                      <li><a href="#">Source 2</a></li>
-                      <li><a href="#">Source 3</a></li>
+                      <li id="huffPoFilter"><a href="#">HuffPo</a></li>
+                      <li id="guardianFilter"><a href="#">Guardian</a></li>
+                      <li id="source3"><a href="#">Source 3</a></li>
                   </ul>
                 </li>
               </ul>
               <section id="search">
-                <input type="text" name="name" value="">
+                <input id="searchBox" type="text" name="name" value="" size="30">
                 <a href="#"><img src="images/search.png" alt="" /></a>
               </section>
             </nav>
             <div class="clearfix"></div>
           </section>
         </header>
-        <div id="popUp" class="loader hidden">
+
+        <div id="popUp" class="hidden">
           <a href="#" class="closePopUp">X</a>
-          <div class="container">
+          <div id="popUpContent" class="container">
             <h1>Article title here</h1>
             <p>
-              Article description/content here.
+
             </p>
             <a href="#" class="popUpAction" target="_blank">Read more from source</a>
           </div>
         </div>
+
         <section id="main" class="container">
-          <article class="article">
+          <article id="hidden-template" class="article">
             <section class="featuredImage">
               <img src="images/article_placeholder_1.jpg" alt="" />
             </section>
             <section class="articleContent">
-                <a href="#"><h3>Test article title</h3></a>
-                <h6>Lifestyle</h6>
+                <a href="#"><h3 class="articleTitle">Test article title</h3></a>
+                <h6>Test section name</h6>
             </section>
-            <section class="impressions">
-              526
-            </section>
-            <div class="clearfix"></div>
-          </article>
-          <article class="article">
-            <section class="featuredImage">
-              <img src="images/article_placeholder_2.jpg" alt="" />
-            </section>
-            <section class="articleContent">
-                <a href="#"><h3>Test article title</h3></a>
-                <h6>Lifestyle</h6>
-            </section>
-            <section class="impressions">
-              526
-            </section>
-            <div class="clearfix"></div>
-          </article>
-          <article class="article">
-            <section class="featuredImage">
-              <img src="images/article_placeholder_2.jpg" alt="" />
-            </section>
-            <section class="articleContent">
-                <a href="#"><h3>Test article title</h3></a>
-                <h6>Lifestyle</h6>
-            </section>
-            <section class="impressions">
-              526
-            </section>
-            <div class="clearfix"></div>
-          </article>
-          <article class="article">
-            <section class="featuredImage">
-              <img src="images/article_placeholder_1.jpg" alt="" />
-            </section>
-            <section class="articleContent">
-                <a href="#"><h3>Test article title</h3></a>
-                <h6>Lifestyle</h6>
-            </section>
-            <section class="impressions">
-              526
+            <section class="articleDate">
+              Date
             </section>
             <div class="clearfix"></div>
           </article>
