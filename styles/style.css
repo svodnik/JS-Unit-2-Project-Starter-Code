@@ -1,3 +1,9 @@
+/* KLS new styles */
+#hidden-template {
+  display: none;
+}
+
+
 /* General styles */
 .container {
   max-width: 1000px;
@@ -59,7 +65,7 @@
 
 /* Header styles */
 header {
-  background-color: #FE052C;
+  background-color: #00838F;
   position: fixed;
   top: 0;
   left: 0;
@@ -103,7 +109,7 @@ header #search a {
 }
 
 header #search a:hover {
-  background: #CC0020;
+  background: #E0F7FA;
 }
 
 header #search img {
@@ -128,7 +134,7 @@ header #search.active input {
 }
 
 header #search.active a {
-  background: #CC0020;
+  background: #00838F;
 }
 
 header nav a {
@@ -142,8 +148,8 @@ header nav a {
 }
 
 header nav a:hover {
-  background-color: #fff;
-  color: #CC0020;
+  background-color: #E0F7FA;
+  color: #00838F;
 }
 
 nav ul {
@@ -156,7 +162,7 @@ nav ul {
 
 nav ul li {
 	display:inline-block;
-	background-color: #CC0020;
+	background-color: #00838F;
   position: relative;
 }
 
@@ -219,7 +225,7 @@ nav ul ul li {
 
 .article .articleContent h3 {
   margin-bottom: 0;
-  color: #FE052C;
+  color: #00838F;
 }
 
 .article .articleContent h6 {
