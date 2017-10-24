@@ -20,7 +20,6 @@ $(function() {
 
   makeUrl(newsApiUrl, newsApiKey, 'source=the-next-web');
 
-
 $.ajax({
     url: makeUrl(newsApiUrl, newsApiKey, 'source=the-next-web'),
     context: document.body
@@ -29,7 +28,6 @@ $.ajax({
     let articles = response.articles;
     let sectionContainer = $('#main');
     $(articles).each(function(articles) {
-
       let article = `
       <article class="article">
 
@@ -39,6 +37,7 @@ $.ajax({
 
         <section class="articleContent">
           <a href="${this.url}"><h3>${this.title}</h3></a>
+          <p class="hidden">${this.description}</p>
           <h6>Lifestyle</h6>
         </section>
 
@@ -48,10 +47,13 @@ $.ajax({
         <div class="clearfix"></div>
       </article>
       `;
-
       sectionContainer.append(article);
+    });
+
+    $('.article').on('click', function(e){
+      e.preventDefault();
+      console.log(this[p.hidden]);
 
     })
-  }
-  )
+  })
 });
