@@ -10,6 +10,8 @@ $(window).load(function () {
     //Create an empty array for all the articles
     let newsArray = [];
 
+    let apiKey = "xxx";
+
     // Create a function to churn out articles from the array
     function articleCreation(array) {
         // Clear whatever was in #main
@@ -101,7 +103,7 @@ $(window).load(function () {
  
     // GET REQUESTS
     // Get request to Breitbart News
-    $.get('https://accesscontrolalloworiginall.herokuapp.com/https://newsapi.org/v1/articles?source=breitbart-news&sortBy=top&apiKey=0727657a13f44aa09df55289aef50bc6', function(response) {
+    $.get(`https://accesscontrolalloworiginall.herokuapp.com/https://newsapi.org/v1/articles?source=breitbart-news&sortBy=top&apiKey=${apiKey}`, function(response) {
         if (response.status === "ok") {
             console.log(response);
             $.merge(newsArray, response.articles);
@@ -113,7 +115,7 @@ $(window).load(function () {
     });
 
     // Get request to Buzzfeed
-    $.get('https://accesscontrolalloworiginall.herokuapp.com/https://newsapi.org/v1/articles?source=buzzfeed&sortBy=top&apiKey=0727657a13f44aa09df55289aef50bc6', function(response) {
+    $.get(`https://accesscontrolalloworiginall.herokuapp.com/https://newsapi.org/v1/articles?source=buzzfeed&sortBy=top&apiKey=${apiKey}`, function(response) {
         if (response.status === "ok") {
             console.log(response);
             $.merge(newsArray, response.articles);
@@ -124,7 +126,7 @@ $(window).load(function () {
     });
 
     // Get request to The New York Times
-    $.get('https://accesscontrolalloworiginall.herokuapp.com/https://newsapi.org/v1/articles?source=the-new-york-times&sortBy=top&apiKey=0727657a13f44aa09df55289aef50bc6', function(response) {
+    $.get(`https://accesscontrolalloworiginall.herokuapp.com/https://newsapi.org/v1/articles?source=the-new-york-times&sortBy=top&apiKey=${apiKey}`, function(response) {
         if (response.status === "ok") {
             console.log(response);
             $.merge(newsArray, response.articles);
