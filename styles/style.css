@@ -4,6 +4,15 @@
   margin: 0 auto;
 }
 
+.loader {
+  width: 100%;
+  height: 100vh;
+  max-height: 100%;
+  background-image: url(../images/ajax_loader.gif);
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
 #popUp {
   opacity: 0.95;
   position: absolute;
@@ -21,12 +30,6 @@
   font-size: 40px;
   color: #FE052C;
   text-decoration: none;
-}
-
-#popUp.loader {
-  background-image: url(../images/ajax_loader.gif);
-  background-repeat: no-repeat;
-  background-position: center center;
 }
 
 #popUp.loader .container {
