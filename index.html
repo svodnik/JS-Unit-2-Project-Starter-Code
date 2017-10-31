@@ -20,11 +20,11 @@
 
         <header>
           <section class="container">
-            <a href="#"><h1>Feedr</h1></a>
+            <a id="home" href="#"><h1>Feedr</h1></a>
             <nav>
-              <ul>
-                <li><a href="#">News Source: <span>Source Name</span></a>
-                  <ul>
+              <ul class="bigList">
+                <li><a href="#">News Source: <span>All</span></a>
+                  <ul class="otherList">
                       <li><a href="#">Source 1</a></li>
                       <li><a href="#">Source 2</a></li>
                       <li><a href="#">Source 3</a></li>
@@ -39,6 +39,8 @@
             <div class="clearfix"></div>
           </section>
         </header>
+
+        <!-- The pacman gif and modal window -->
         <div id="popUp" class="loader hidden">
           <a href="#" class="closePopUp">X</a>
           <div class="container">
@@ -49,6 +51,9 @@
             <a href="#" class="popUpAction" target="_blank">Read more from source</a>
           </div>
         </div>
+
+        <!-- News articles previews -->
+        <!-- Should only have an empty section, and build out all content inside using JavaScript -->
         <section id="main" class="container">
           <article class="article">
             <section class="featuredImage">
