@@ -197,15 +197,19 @@ nav ul ul li {
 }
 
 .article .featuredImage {
-  width: 12%;
   float: left;
   margin: 1.5%;
-  max-width: 60px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
 }
 
 .article .featuredImage img {
-  max-width: 100%;
-  border-radius: 50px;
+  height: 100%;
+  width: auto;
+  line-height: 50px;
+  display: block;
 }
 
 .article .articleContent {
@@ -230,7 +234,7 @@ nav ul ul li {
 .article .impressions {
   width: 15%;
   float: right;
-  font-size: 30px;
+  font-size: 14px;
   margin-top: 15px;
   text-align: right;
   color: #097FB2;
